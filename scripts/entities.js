@@ -1,7 +1,7 @@
 class Match {
-    constructor(p1, p2, time) {
-        this.p1 = p1
-        this.p2 = p2
+    constructor(cabeceiro, peseiro, time) {
+        this.cabeceiro = cabeceiro
+        this.peseiro = peseiro
         this.time = time
     }
 
@@ -10,7 +10,7 @@ class Match {
     }
 
     asString() {
-        return "" + this.p1 + " x " + this.p2 + " : " + this.time
+        return "" + this.cabeceiro + " x " + this.peseiro + " : " + this.time
     }
 }
 
@@ -19,10 +19,10 @@ class Session {
     matches = []
     isOpen = false
 
-    constructor(peList, lacoList) {
-        for (var pe of peList) {
-            for (var laco of lacoList) {
-                this.matches.push(new Match(pe, laco))
+    constructor(cabeceiroList, peseiroList) {
+        for (var cabeceiro of cabeceiroList) {
+            for (var peseiro of peseiroList) {
+                this.matches.push(new Match(cabeceiro, peseiro))
             }
         }
         this.timestamp = +new Date()
@@ -42,10 +42,10 @@ class Session {
     }
 
     isOpen() {
-        return this.isOngoing
+        return this.isOpen
     }
 
     close() {
-        this.isOngoing = false
+        this.isOpen = false
     }
 }

@@ -1,9 +1,9 @@
-function newPeInput(number) {
-    return "<input type=\"text\" class=\"form-control\" id=\"inclusion-pe-" + number + "\">";
+function newCabeceiroInput(number) {
+    return "<input type=\"text\" class=\"form-control\" id=\"inclusion-cabeceiro-" + number + "\">";
 }
 
-function newLacoInput(number) {
-    return "<input type=\"text\" class=\"form-control\" id=\"inclusion-laco-" + number + "\">"
+function newPeseiroInput(number) {
+    return "<input type=\"text\" class=\"form-control\" id=\"inclusion-peseiro-" + number + "\">"
 }
 
 function checkForChildElement(parent, children) {
@@ -13,36 +13,36 @@ function checkForChildElement(parent, children) {
     return false
 }
 
-function createNextPeInput(number) {
-    $('#inclusion-pe').append(newPeInput(number))
-    setPeInputBehaviour(number)
+function createNextCabeceiroInput(number) {
+    $('#inclusion-cabeceiro').append(newCabeceiroInput(number))
+    setCabeceiroInputBehaviour(number)
 }
 
-function createNextLacoInput(number) {
-    $('#inclusion-laco').append(newLacoInput(number))
-    setLacoInputBehaviour(number)
+function createNextPeseiroInput(number) {
+    $('#inclusion-peseiro').append(newPeseiroInput(number))
+    setPeseiroInputBehaviour(number)
 }
 
-function setPeInputBehaviour(number) {
-    $(document).on('input', '#inclusion-pe-' + number, e => {
+function setCabeceiroInputBehaviour(number) {
+    $(document).on('input', '#inclusion-cabeceiro-' + number, e => {
         var next = number + 1
-        if (!checkForChildElement('inclusion-pe', 'inclusion-pe-' + next)) { // terrible performance, there's gotta be a better way
-            createNextPeInput(next)
+        if (!checkForChildElement('inclusion-cabeceiro', 'inclusion-cabeceiro-' + next)) { // terrible performance, there's gotta be a better way
+            createNextCabeceiroInput(next)
         }
     })
 }
 
-function setLacoInputBehaviour(number) {
-    $(document).on('input', '#inclusion-laco-' + number, e => {
+function setPeseiroInputBehaviour(number) {
+    $(document).on('input', '#inclusion-peseiro-' + number, e => {
         var next = number + 1
-        if (!checkForChildElement('inclusion-laco', 'inclusion-laco-' + next)) {
-            createNextLacoInput(next)
+        if (!checkForChildElement('inclusion-peseiro', 'inclusion-peseiro-' + next)) {
+            createNextPeseiroInput(next)
         }
     })
 }
 
-setPeInputBehaviour(1)
-setLacoInputBehaviour(1)
+setCabeceiroInputBehaviour(1)
+setPeseiroInputBehaviour(1)
 
 function getValuesFromChildrenInputs(element) {
     // for some reason the code below isn't working
@@ -62,9 +62,9 @@ function getValuesFromChildrenInputs(element) {
 }
 
 $(document).on('click', '#inclusion-start-button', e => {
-    var peList = getValuesFromChildrenInputs($('#inclusion-pe'))
-    var lacoList = getValuesFromChildrenInputs($('#inclusion-laco'))
+    var cabeceiroList = getValuesFromChildrenInputs($('#inclusion-cabeceiro'))
+    var peseiroList = getValuesFromChildrenInputs($('#inclusion-peseiro'))
 
-    var session = new Session(peList, lacoList)
+    var session = new Session(cabeceiroList, peseiroList)
     Storage.saveSession(session)
 })
