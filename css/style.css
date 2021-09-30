@@ -2,6 +2,12 @@
     font-size: 25px;
 }
 
+#brand-name {
+    float: right;
+    margin-top: 14px;
+    margin-left: 6px;
+}
+
 #logo {
     margin: 7px;
     height: 50px;
@@ -9,6 +15,7 @@
 
 .nav-item {
     margin: 10px;
+    margin-top: 14px;
 }
 
 .nav-item a {
