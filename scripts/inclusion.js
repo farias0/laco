@@ -50,6 +50,5 @@ $(document).on('click', '#inclusion-start-button', e => {
     var peList = getValuesFromChildrenInputs($('#inclusion-pe'))
     var lacoList = getValuesFromChildrenInputs($('#inclusion-laco'))
 
-    console.log(peList)
-    console.log(lacoList)
+    var session = new Session(peList, lacoList)
 })
