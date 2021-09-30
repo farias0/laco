@@ -35,9 +35,13 @@ class Session {
         var matchesPerSet = Math.min(cabeceiroList.length, peseiroList.length)
 
         for (var s = 0; s < numberOfSets; s++) {
+            var set = []
+
             for (var m = 0; m < matchesPerSet; m++) {
-                this.matches.push(new Match(cabeceiroList[m], peseiroList[m]))
+                set.matches.push(new Match(cabeceiroList[m], peseiroList[m]))
             }
+
+            this.matches.push(set)
 
             if (cabeceiroList.length > peseiroList.length) {
                 cabeceiroList = arrayLastToFirst(cabeceiroList)
