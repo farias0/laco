@@ -51,4 +51,5 @@ $(document).on('click', '#inclusion-start-button', e => {
     var lacoList = getValuesFromChildrenInputs($('#inclusion-laco'))
 
     var session = new Session(peList, lacoList)
+    Storage.saveSession(session)
 })

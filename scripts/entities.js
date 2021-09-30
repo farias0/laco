@@ -15,7 +15,9 @@ class Match {
 }
 
 class Session {
+    timestamp = ''
     matches = []
+    isOpen = false
 
     constructor(peList, lacoList) {
         for (var pe of peList) {
@@ -23,6 +25,8 @@ class Session {
                 this.matches.push(new Match(pe, laco))
             }
         }
+        this.timestamp = +new Date()
+        this.isOpen = true
     }
 
     getMatches() {
@@ -35,5 +39,13 @@ class Session {
             str += match.asString() + '\n'
         }
         return str.slice(0, -1)
+    }
+
+    isOpen() {
+        return this.isOngoing
+    }
+
+    close() {
+        this.isOngoing = false
     }
 }
