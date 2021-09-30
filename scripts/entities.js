@@ -38,7 +38,7 @@ class Session {
             var set = []
 
             for (var m = 0; m < matchesPerSet; m++) {
-                set.matches.push(new Match(cabeceiroList[m], peseiroList[m]))
+                set.push(new Match(cabeceiroList[m], peseiroList[m]))
             }
 
             this.matches.push(set)
