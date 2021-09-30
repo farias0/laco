@@ -19,7 +19,7 @@ $(document).ready(function() {
 
 })
 
-$(document).on('click', '#current-button', e => {
+$(document).on('click', '#current-session-button', e => {
     e.preventDefault()
     loadContent('./sections')
 })
