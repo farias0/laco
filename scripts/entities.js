@@ -14,19 +14,37 @@ class Match {
     }
 }
 
+function arrayLastToFirst(arr) {
+    var last = arr.pop()
+    return [last, ...arr]
+}
+
 class Session {
     timestamp = ''
     matches = []
     isOpen = false
 
     constructor(cabeceiroList, peseiroList) {
-        for (var cabeceiro of cabeceiroList) {
-            for (var peseiro of peseiroList) {
-                this.matches.push(new Match(cabeceiro, peseiro))
+        this.timestamp = +new Date()
+        this.setMatches(cabeceiroList, peseiroList)
+        this.isOpen = true
+    }
+
+    setMatches(cabeceiroList, peseiroList) {
+        var numberOfSets = Math.max(cabeceiroList.length, peseiroList.length)
+        var matchesPerSet = Math.min(cabeceiroList.length, peseiroList.length)
+
+        for (var s = 0; s < numberOfSets; s++) {
+            for (var m = 0; m < matchesPerSet; m++) {
+                this.matches.push(new Match(cabeceiroList[m], peseiroList[m]))
+            }
+
+            if (cabeceiroList.length > peseiroList.length) {
+                cabeceiroList = arrayLastToFirst(cabeceiroList)
+            } else {
+                peseiroList = arrayLastToFirst(peseiroList)
             }
         }
-        this.timestamp = +new Date()
-        this.isOpen = true
     }
 
     getMatches() {
