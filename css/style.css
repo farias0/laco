@@ -24,6 +24,7 @@
 
 #page-body {
     margin-top: 30px;
+    max-width: 690px;
 }
 
 #inclusion div {
