@@ -1,4 +1,4 @@
-function loadContent(pageRef) {
+function loadContent(pageRef, callback) {
     $.ajax({
         url: pageRef,
         data: {},
@@ -11,7 +11,7 @@ function loadContent(pageRef) {
             console.log('error: ' + error.statusText)
             console.log(error)
         },
-        complete: (xhr, status) => {}
+        complete: callback
     })
 }
 
