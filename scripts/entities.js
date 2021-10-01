@@ -5,6 +5,18 @@ class Match {
         this.time = time
     }
 
+    getCabeceiro() {
+        return this.cabeceiro
+    }
+
+    getPeseiro() {
+        return this.peseiro
+    }
+
+    getTime() {
+        return this.time
+    }
+
     setTime(time) {
         this.time = time
     }
