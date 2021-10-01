@@ -41,7 +41,7 @@ function createTimeInput(set, match) {
     button.type = 'checkbox'
     button.id = buttonId
 
-    buttonLabel.textContent = 'SAT'
+    buttonLabel.textContent = 'SAT  '
 
     $(button).change(() => {
         if ($(button).is(':checked')) {
