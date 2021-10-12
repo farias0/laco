@@ -59,12 +59,24 @@ function createTimeInput(set, match) {
     return div
 }
 
-function createTh(label) {
+function createTh(label, cssTag) {
     var th = document.createElement('th')
-    th.classList.add('match-table-column')
+    th.classList.add(cssTag)
     th.scope = 'col'
     th.innerText = label
     return th
+}
+
+function createThSize1(label) {
+    return createTh(label, 'match-table-column-s1')
+}
+
+function createThSize2(label) {
+    return createTh(label, 'match-table-column-s2')
+}
+
+function createThSize3(label) {
+    return createTh(label, 'match-table-column-s3')
 }
 
 function createTd(label) {
@@ -80,14 +92,16 @@ function createSetTable(setNumber, matches) {
 
     var thead = table.createTHead()
     var headerTr = document.createElement('tr')
-    headerTr.appendChild(createTh('Cabeceiro'))
-    headerTr.appendChild(createTh('Peseiro'))
-    headerTr.appendChild(createTh('Tempo'))
+    headerTr.appendChild(createThSize1(''))
+    headerTr.appendChild(createThSize3('Cabeceiro'))
+    headerTr.appendChild(createThSize3('Peseiro'))
+    headerTr.appendChild(createThSize2('Tempo'))
     thead.appendChild(headerTr)
 
     var tbody = table.createTBody()
     for (var match in matches) {
         var tr = document.createElement('tr')
+        tr.appendChild(createTd((Number(setNumber) * matches.length) + (1+Number(match))))
         tr.appendChild(createTd(matches[match].getCabeceiro()))
         tr.appendChild(createTd(matches[match].getPeseiro()))
         tr.appendChild(createTimeInput(setNumber, match))

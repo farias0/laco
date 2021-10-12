@@ -36,6 +36,14 @@
     max-width: 600px;
 }
 
-.match-table-column {
-    width: 33.3%;
+.match-table-column-s1 {
+    width: 10%;
+}
+
+.match-table-column-s2 {
+    width: 20%;
+}
+
+.match-table-column-s3 {
+    width: 35%;
 }
