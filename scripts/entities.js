@@ -26,9 +26,9 @@ class Match {
     }
 }
 
-function arrayLastToFirst(arr) {
-    var last = arr.pop()
-    return [last, ...arr]
+function arrayFirstToLast(arr) {
+    var first = arr.splice(0, 1)[0]
+    return [...arr, first]
 }
 
 class Session {
@@ -56,9 +56,9 @@ class Session {
             this.matches.push(set)
 
             if (cabeceiroList.length > peseiroList.length) {
-                cabeceiroList = arrayLastToFirst(cabeceiroList)
+                cabeceiroList = arrayFirstToLast(cabeceiroList)
             } else {
-                peseiroList = arrayLastToFirst(peseiroList)
+                peseiroList = arrayFirstToLast(peseiroList)
             }
         }
     }
