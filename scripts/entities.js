@@ -31,6 +31,23 @@ function arrayFirstToLast(arr) {
     return [...arr, first]
 }
 
+function getFromArrayWithLoop(arr, index) {
+    var noOfPastLoops = Math.floor(index / arr.length)
+    var actualIndex = index - (noOfPastLoops * arr.length)
+    return arr[actualIndex]
+}
+
+function isMatchPresent(matches, match) {
+    for (var set of matches) {
+        for (var m of set) {
+            if (m.cabeceiro === match.cabeceiro && m.peseiro === match.peseiro) {
+                return true
+            }
+        }
+    }
+    return false
+}
+
 class Session {
     timestamp = ''
     matches = []
@@ -45,20 +62,27 @@ class Session {
     setMatches(cabeceiroList, peseiroList) {
         var numberOfSets = Math.max(cabeceiroList.length, peseiroList.length)
         var matchesPerSet = Math.min(cabeceiroList.length, peseiroList.length)
+        var numberOfMatches = cabeceiroList.length * peseiroList.length
 
+        var m=0;
         for (var s = 0; s < numberOfSets; s++) {
-            var set = []
 
-            for (var m = 0; m < matchesPerSet; m++) {
-                set.push(new Match(cabeceiroList[m], peseiroList[m]))
-            }
+            this.matches.push([])
 
-            this.matches.push(set)
+            for (; m < numberOfMatches - (matchesPerSet * (numberOfSets-s-1)) ; m++) {
 
-            if (cabeceiroList.length > peseiroList.length) {
-                cabeceiroList = arrayFirstToLast(cabeceiroList)
-            } else {
-                peseiroList = arrayFirstToLast(peseiroList)
+                var newMatch = new Match(getFromArrayWithLoop(cabeceiroList, m), getFromArrayWithLoop(peseiroList, m))
+
+                if (isMatchPresent(this.matches, newMatch)) {
+                    if (cabeceiroList.length > peseiroList.length) {
+                        cabeceiroList = arrayFirstToLast(cabeceiroList)
+                    } else {
+                        peseiroList = arrayFirstToLast(peseiroList)
+                    }
+                    newMatch = new Match(getFromArrayWithLoop(cabeceiroList, m), getFromArrayWithLoop(peseiroList, m))
+                }
+
+                this.matches[s].push(newMatch)
             }
         }
     }
