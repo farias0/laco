@@ -109,8 +109,7 @@ class Session2Screen {
         $(document).on('click', '#to-session-results-button', e => { //
             this.setMatchesResults()
             Storage.saveSession(this.session)
-            // loadContent('./sections/session-p2.html', () => Session2Screen.loadSessionP2(this.session))
-            console.log(this.session)
+            loadContent('./sections/session-results.html', () => SessionResultsScreen.loadSessionResults(this.session))
         })
 
         return button
