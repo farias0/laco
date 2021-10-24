@@ -111,9 +111,18 @@ function createSetTable(setNumber, matches) {
     $('#session').append(table)
 }
 
+function createToP2Button() {
+    var button = document.createElement('button')
+    button.id = 'to-session-p2-button'
+    button.classList.add('btn', 'btn-primary', 'btn-lg', 'float-right')
+    button.innerHTML = 'Próximo'
+    $('#session').append(button)
+}
+
 function loadSession(session) {
     var sets = session.getMatches()
     for (var setNumber in sets) {
         createSetTable(setNumber, sets[setNumber])
     }
+    createToP2Button()
 }
