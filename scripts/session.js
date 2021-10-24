@@ -126,3 +126,9 @@ function loadSession(session) {
     }
     createToP2Button()
 }
+
+$(document).on('click', '#to-session-p2-button', e => {
+
+
+    loadContent('./sections/session-p2.html', () => loadSessionP2('oi'))
+})
