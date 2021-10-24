@@ -16,18 +16,18 @@ class Match {
 }
 
 function arrayFirstToLast(arr) {
-    var first = arr.splice(0, 1)[0]
+    const first = arr.splice(0, 1)[0]
     return [...arr, first]
 }
 
-function getFromArrayWithLoop(arr, index) {
-    var noOfPastLoops = Math.floor(index / arr.length)
-    var actualIndex = index - (noOfPastLoops * arr.length)
+function getFromArrayWithLoop(arr, virtualIndex) {
+    const noOfPastLoops = Math.floor(virtualIndex / arr.length)
+    const actualIndex = virtualIndex - (noOfPastLoops * arr.length)
     return arr[actualIndex]
 }
 
-function isMatchPresent(matches, match) {
-    for (var set of matches) {
+function isMatchPresent(sets, match) {
+    for (var set of sets) {
         for (var m of set) {
             if (m.cabeceiro === match.cabeceiro && m.peseiro === match.peseiro) {
                 return true
@@ -39,7 +39,7 @@ function isMatchPresent(matches, match) {
 
 class Session {
     timestamp = ''
-    matches = []
+    sets = []
     isOpen = false
 
     constructor(cabeceiroList, peseiroList) {
@@ -49,20 +49,20 @@ class Session {
     }
 
     setMatches(cabeceiroList, peseiroList) {
-        var numberOfSets = Math.max(cabeceiroList.length, peseiroList.length)
-        var matchesPerSet = Math.min(cabeceiroList.length, peseiroList.length)
-        var numberOfMatches = cabeceiroList.length * peseiroList.length
+        const numberOfSets = Math.max(cabeceiroList.length, peseiroList.length)
+        const matchesPerSet = Math.min(cabeceiroList.length, peseiroList.length)
+        const numberOfMatches = cabeceiroList.length * peseiroList.length
 
-        var m=0;
-        for (var s = 0; s < numberOfSets; s++) {
+        let m=0;
+        for (let s = 0; s < numberOfSets; s++) {
 
-            this.matches.push([])
+            this.sets.push([])
 
             for (; m < numberOfMatches - (matchesPerSet * (numberOfSets-s-1)) ; m++) {
 
-                var newMatch = new Match(getFromArrayWithLoop(cabeceiroList, m), getFromArrayWithLoop(peseiroList, m))
+                let newMatch = new Match(getFromArrayWithLoop(cabeceiroList, m), getFromArrayWithLoop(peseiroList, m))
 
-                if (isMatchPresent(this.matches, newMatch)) {
+                if (isMatchPresent(this.sets, newMatch)) {
                     if (cabeceiroList.length > peseiroList.length) {
                         cabeceiroList = arrayFirstToLast(cabeceiroList)
                     } else {
@@ -71,18 +71,26 @@ class Session {
                     newMatch = new Match(getFromArrayWithLoop(cabeceiroList, m), getFromArrayWithLoop(peseiroList, m))
                 }
 
-                this.matches[s].push(newMatch)
+                this.sets[s].push(newMatch)
             }
         }
     }
 
+    getSets() {
+        return this.sets
+    }
+
     getMatches() {
-        return this.matches
+        const matches = []
+        for (const set of this.sets) {
+            matches.push(...set)
+        }
+        return matches
     }
 
     asString() {
-        var str = ''
-        for (var match of this.matches) {
+        let str = ''
+        for (var match of this.sets) {
             str += match.asString() + '\n'
         }
         return str.slice(0, -1)
