@@ -6,15 +6,11 @@ class Match {
         this.timeP2 = timeP2
     }
 
-    setTime(time) {
-        this.time = time
-    }
-
     asString() {
         return "" + this.cabeceiro + " x " + this.peseiro + " : " + this.timeP1 + " : " + this.timeP2
     }
 
-    static getSAT() {
+    static getSatValue() {
         return 'SAT'
     }
 }
