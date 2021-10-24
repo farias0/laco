@@ -10,12 +10,20 @@ class Match {
         return "" + this.cabeceiro + " x " + this.peseiro + " : " + this.timeP1 + " : " + this.timeP2
     }
 
+    getAverageTime() {
+        return Match.averageTime(this.timeP1, this.timeP2)
+    }
+
     static getSatValue() {
         return 'SAT'
     }
 
     static timeStringTreatment(time) {
         return parseFloat(time.replace(',','.').replace(':','.'))
+    }
+
+    static averageTime(p1, p2) {
+        return (parseFloat(p1) + parseFloat(p2)) / 2
     }
 }
 

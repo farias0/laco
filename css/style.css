@@ -60,6 +60,18 @@
     width: 40%;
 }
 
+.match-table-column-results-s1 {
+    width: 10%;
+}
+
+.match-table-column-results-s2 {
+    width: 17%;
+}
+
+.match-table-column-results-s3 {
+    width: 50%;
+}
+
 .sat-checkbox-label {
     margin-right: 10px;
 }
