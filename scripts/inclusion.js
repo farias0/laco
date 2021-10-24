@@ -68,5 +68,5 @@ $(document).on('click', '#inclusion-start-button', e => {
     var session = new Session(cabeceiroList, peseiroList)
     Storage.saveSession(session)
 
-    loadContent('./sections/session.html', () => loadSession(session))
+    loadContent('./sections/session.html', () => Session1Screen.loadSession(session))
 })
