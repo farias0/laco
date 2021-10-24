@@ -1,20 +1,9 @@
 class Match {
-    constructor(cabeceiro, peseiro, time) {
+    constructor(cabeceiro, peseiro, timeP1, timeP2) {
         this.cabeceiro = cabeceiro
         this.peseiro = peseiro
-        this.time = time
-    }
-
-    getCabeceiro() {
-        return this.cabeceiro
-    }
-
-    getPeseiro() {
-        return this.peseiro
-    }
-
-    getTime() {
-        return this.time
+        this.timeP1 = timeP1
+        this.timeP2 = timeP2
     }
 
     setTime(time) {
@@ -22,7 +11,11 @@ class Match {
     }
 
     asString() {
-        return "" + this.cabeceiro + " x " + this.peseiro + " : " + this.time
+        return "" + this.cabeceiro + " x " + this.peseiro + " : " + this.timeP1 + " : " + this.timeP2
+    }
+
+    static getSAT() {
+        return 'SAT'
     }
 }
 
