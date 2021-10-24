@@ -13,6 +13,10 @@ class Match {
     static getSatValue() {
         return 'SAT'
     }
+
+    static timeStringTreatment(time) {
+        return parseFloat(time.replace(',','.').replace(':','.'))
+    }
 }
 
 function arrayFirstToLast(arr) {
