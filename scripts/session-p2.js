@@ -33,8 +33,6 @@ class Session2Screen {
                 $(timeInput).prop('disabled', false);
             }
         });
-    
-        // satCheckboxLabel.appendChild(satCheckbox)
 
         div.appendChild(satCheckboxDiv)
 
@@ -85,8 +83,8 @@ class Session2Screen {
         const headerTr = document.createElement('tr')
         headerTr.appendChild(this.createThSize1(''))
         headerTr.appendChild(this.createThSize3('Partida')) //
-        headerTr.appendChild(this.createThSize2('Fase 1')) //
-        headerTr.appendChild(this.createThSize2('Fase 2')) //
+        headerTr.appendChild(this.createThSize2('1º Boi')) //
+        headerTr.appendChild(this.createThSize2('2º Boi')) //
         thead.appendChild(headerTr)
     
         const tbody = table.createTBody()
@@ -102,26 +100,13 @@ class Session2Screen {
         return table
     }
 
-    static createTableTitle(text) {
-        const element = document.createElement('H3')
-        const node = document.createTextNode(text)
-        element.append(node)
-        return element
-    }
-
     static loadSessionP2(session) {
         this.session = session
 
         const matches = this.session.getMatches()
         let qualified = matches.filter(m => m.timeP1 !== Match.getSatValue())
         qualified.sort((a, b) => Match.timeStringTreatment(b.timeP1) - Match.timeStringTreatment(a.timeP1))
-        const disqualified = matches.filter(m => m.timeP1 === Match.getSatValue())
 
-        $('#sessionP2').append(this.createTableTitle("Qualificados"))
         $('#sessionP2').append(this.createSetTable(1, qualified))
-        $('#sessionP2').append(this.createTableTitle("Desqualificados"))
-        $('#sessionP2').append(this.createSetTable(2, disqualified))
-
-        console.log(qualified)
     }
 }

@@ -31,8 +31,6 @@ class Session1Screen {
                 $(timeInput).prop('disabled', false);
             }
         });
-    
-        // satCheckboxLabel.appendChild(satCheckbox)
 
         div.appendChild(satCheckboxDiv)
 
