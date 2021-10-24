@@ -47,3 +47,7 @@
 .match-table-column-s3 {
     width: 35%;
 }
+
+.sat-checkbox-label {
+    margin-right: 10px;
+}

@@ -48,6 +48,7 @@ class Session {
         this.isOpen = true
     }
 
+    // pretty sure it would be a lot more efficient to store the matches and then divide them into sets when needed 
     setMatches(cabeceiroList, peseiroList) {
         const numberOfSets = Math.max(cabeceiroList.length, peseiroList.length)
         const matchesPerSet = Math.min(cabeceiroList.length, peseiroList.length)
@@ -90,8 +91,10 @@ class Session {
 
     asString() {
         let str = ''
-        for (var match of this.sets) {
-            str += match.asString() + '\n'
+        for (const set of this.sets) {
+            for (const match of set) {
+                str += match.asString() + '\n'
+            }
         }
         return str.slice(0, -1)
     }

@@ -11,11 +11,18 @@ class Session1Screen {
         div.appendChild(timeInput)
     
         const satCheckboxDiv = document.createElement('div')
+        const satChecboxId = 'sat-btn-' + set + '-' + match
+
         const satCheckboxLabel = document.createElement('label')
+        satCheckboxLabel.textContent = 'SAT'
+        satCheckboxLabel.classList.add('sat-checkbox-label')
+        satCheckboxLabel.for = satChecboxId
+        satCheckboxDiv.appendChild(satCheckboxLabel)
+
         const satCheckbox = document.createElement('input')
         satCheckbox.type = 'checkbox'
-        satCheckbox.id = 'sat-btn-' + set + '-' + match
-        satCheckboxLabel.textContent = 'SAT  '
+        satCheckbox.id = satChecboxId
+        satCheckboxDiv.appendChild(satCheckbox)
     
         $(satCheckbox).change(() => {
             if ($(satCheckbox).is(':checked')) {
@@ -25,12 +32,18 @@ class Session1Screen {
             }
         });
     
-        satCheckboxLabel.appendChild(satCheckbox)
-        satCheckboxDiv.appendChild(satCheckboxLabel)
-    
+        // satCheckboxLabel.appendChild(satCheckbox)
+
         div.appendChild(satCheckboxDiv)
 
         return div
+    }
+
+    static getValuesFromTimeInput(div) {
+        return {
+            time: div.childNodes[0].value,
+            isSat: div.childNodes[1].childNodes[1].checked
+        }
     }
     
     // creates the header for each set table
@@ -84,7 +97,7 @@ class Session1Screen {
             tbody.appendChild(tr)
         }
     
-        $('#session').append(table)
+        return table
     }
     
     static createToP2Button() {
@@ -92,24 +105,54 @@ class Session1Screen {
         button.id = 'to-session-p2-button'
         button.classList.add('btn', 'btn-primary', 'btn-lg', 'float-right')
         button.innerHTML = 'Próximo'
-        $('#session').append(button)
+
+        $(document).on('click', '#to-session-p2-button', e => {
+            this.setMatchesResults()
+            Storage.saveSession(this.session)
+            loadContent('./sections/session-p2.html', () => Session2Screen.loadSessionP2(this.session))
+        })
+
+        return button
     }
     
     static loadSession(session) {
-        const sets = session.getMatches()
+        this.session = session
+
+        const sets = this.session.getSets()
         for (const setNumber in sets) {
-            this.createSetTable(setNumber, sets[setNumber])
+            $('#session').append(
+                this.createSetTable(setNumber, sets[setNumber])
+            )
         }
-        this.createToP2Button()
+
+        $('#session').append(this.createToP2Button())
     }
 
+    // returns a map (key=cabeceiro) with submaps (key=peseiro) with the result as a value (time or SAT)
+    static getResultsAsMap() {
+        const matches = {}
+        for (const table of $('#session').children()) {
+            if (table.id === 'match-set-table') {
+                const rows = table.tBodies.item(0).rows
+                for (const row of rows) {
+                    const c = row.childNodes[1].innerText
+                    const p = row.childNodes[2].innerText
+                    const result = this.getValuesFromTimeInput(row.childNodes[3])
+                    if (!matches[c]) matches[c] = {}
+                    matches[c][p] = result.isSat ? Match.getSatValue() : result.time
+                } 
+            }
+        }
+        return matches
+    }
+
+    // retrieve and set the result of each match to the session object
     static setMatchesResults() {
-        const sets = session.getMatches()
+        const matches = this.session.getMatches()
+        const results = this.getResultsAsMap()
+
+        for (const match of matches) {
+            match.timeP1 = results[match.cabeceiro][match.peseiro]
+        }
     }
 }
-
-$(document).on('click', '#to-session-p2-button', e => {
-    Session1Screen.setMatchesResults()    
-    loadContent('./sections/session-p2.html', () => loadSessionP2(Session1Screen.session))
-})
-
