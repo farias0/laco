@@ -17,7 +17,7 @@ class Session2Screen {
                                         Table.createCell(qualified.indexOf(match) + 1),
                                         Table.createCell(match.cabeceiro.name + ' x ' + match.peseiro.name),
                                         Table.createCell(match.timeP1),
-                                        Table.createTimeInputCell(1, qualified.indexOf(match))
+                                        Table.createTimeInputCell()
                                     ]))
                                     .build())
 

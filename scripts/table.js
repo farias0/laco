@@ -64,16 +64,16 @@ class Table {
         return td
     }
 
-    static createTimeInputCell(set, match) {
+    static createTimeInputCell(id) {
         const div = document.createElement('div')
 
         const timeInput = document.createElement('input')
         timeInput.classList.add('form-control')
-        timeInput.id = 'time-' + set + '-' + match
+        timeInput.id = 'time-' + id
         div.appendChild(timeInput)
     
         const satCheckboxDiv = document.createElement('div')
-        const satChecboxId = 'sat-btn-' + set + '-' + match
+        const satChecboxId = 'sat-btn-' + id
 
         const satCheckboxLabel = document.createElement('label')
         satCheckboxLabel.textContent = 'SAT'

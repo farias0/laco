@@ -14,10 +14,10 @@ class Session1Screen {
                                 .addColumn(Table.createColumn('Peseiro', 35))
                                 .addColumn(Table.createColumn('Tempo', 20))
                                 .setRows(matches.map(match => [
-                                    Table.createCell((Number(setNumber) * matches.length) + (1+matches.indexOf(match))),
+                                    Table.createCell((Number(setNumber) * matches.length) + (matches.indexOf(match) + 1)),
                                     Table.createCell(match.cabeceiro.name),
                                     Table.createCell(match.peseiro.name),
-                                    Table.createTimeInputCell(setNumber, matches.indexOf(match))
+                                    Table.createTimeInputCell()
                                 ]))
                                 .build()
 
