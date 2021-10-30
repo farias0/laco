@@ -4,18 +4,22 @@ class InclusionScreen {
         this.setCabeceiroInputBehaviour(1)
         this.setPeseiroInputBehaviour(1)
 
-        $(document).on('click', '#inclusion-start-button', e => {
-            var cabeceiroNameList = this.getValuesFromChildrenInputs($('#inclusion-cabeceiro'))
-            var peseiroNameList = this.getValuesFromChildrenInputs($('#inclusion-peseiro'))
-        
-            const cabeceiroList = cabeceiroNameList.map(c => new Player(c, "0"))
-            const peseiroList = peseiroNameList.map(p => new Player(p, "0"))
-        
-            var session = new Session(cabeceiroList, peseiroList)
-            Storage.saveSession(session)
-        
-            loadContent('./sections/session.html', () => Session1Screen.loadSession(session))
-        })
+        $('#inclusion').append(Button.createButton()
+                                    .setId('inclusion-start-button')
+                                    .setLabel('Começar')
+                                    .setType(ButtonType.SUCCESS)
+                                    .setAction(() => {
+                                        const cabeceiroList = this.getValuesFromChildrenInputs($('#inclusion-cabeceiro'))
+                                                                    .map(c => new Player(c, "0"))
+                                        const peseiroList = this.getValuesFromChildrenInputs($('#inclusion-peseiro'))
+                                                                .map(p => new Player(p, "0"))
+                                    
+                                        const session = new Session(cabeceiroList, peseiroList)
+                                        Storage.saveSession(session)
+                                    
+                                        loadContent('./sections/session.html', () => Session1Screen.loadSession(session))
+                                    })
+                                    .build())
     }
 
     static setCabeceiroInputBehaviour(number) {
