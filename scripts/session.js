@@ -1,21 +1,6 @@
 class Session1Screen {
     static session = null
     
-    static createToP2Button() {
-        const button = document.createElement('button')
-        button.id = 'to-session-p2-button'
-        button.classList.add('btn', 'btn-primary', 'btn-lg', 'float-right')
-        button.innerHTML = 'Próximo'
-
-        $(document).on('click', '#to-session-p2-button', e => {
-            this.setMatchesResults()
-            Storage.saveSession(this.session)
-            loadContent('./sections/session-p2.html', () => Session2Screen.loadSessionP2(this.session))
-        })
-
-        return button
-    }
-    
     static loadSession(session) {
         this.session = session
 
@@ -39,7 +24,15 @@ class Session1Screen {
             $('#session').append(table)
         }
 
-        $('#session').append(this.createToP2Button())
+        $('#session').append(Button.createButton()
+                                    .setId('to-session-p2-button')
+                                    .setLabel('Próximo')
+                                    .setAction(() => {
+                                        this.setMatchesResults()
+                                        Storage.saveSession(this.session)
+                                        loadContent('./sections/session-p2.html', () => Session2Screen.loadSessionP2(this.session))
+                                    })
+                                    .build())
     }
 
     // returns a map (key=cabeceiro) with submaps (key=peseiro) with the result as a value (time or SAT)
