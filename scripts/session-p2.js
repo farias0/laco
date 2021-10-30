@@ -23,20 +23,18 @@ class Session2Screen {
         let qualified = matches.filter(m => m.timeP1 !== Match.getSatValue())
         qualified.sort((a, b) => Match.timeStringTreatment(b.timeP1) - Match.timeStringTreatment(a.timeP1))
 
-        const table = UI.createTable()
-                        .addColumn(UI.createTh('', 10))
-                        .addColumn(UI.createTh('Partida', 40))
-                        .addColumn(UI.createTh('1º Boi', 25))
-                        .addColumn(UI.createTh('2º Boi', 25))
-                        .setRows(qualified.map(match => [
-                            UI.createTd(qualified.indexOf(match) + 1),
-                            UI.createTd(match.cabeceiro.name + ' x ' + match.peseiro.name),
-                            UI.createTd(match.timeP1),
-                            UI.createTimeInput(1, qualified.indexOf(match))
-                        ]))
-                        .build()
-
-        $('#sessionP2').append(table)
+        $('#sessionP2').append(Table.createTable()
+                                    .addColumn(Table.createColumn('', 10))
+                                    .addColumn(Table.createColumn('Partida', 40))
+                                    .addColumn(Table.createColumn('1º Boi', 25))
+                                    .addColumn(Table.createColumn('2º Boi', 25))
+                                    .setRows(qualified.map(match => [
+                                        Table.createCell(qualified.indexOf(match) + 1),
+                                        Table.createCell(match.cabeceiro.name + ' x ' + match.peseiro.name),
+                                        Table.createCell(match.timeP1),
+                                        Table.createTimeInputCell(1, qualified.indexOf(match))
+                                    ]))
+                                    .build())
 
         $('#sessionP2').append(this.createToResultsButton())
     }
@@ -51,7 +49,7 @@ class Session2Screen {
                     const players = row.childNodes[1].innerText.split(' x ')
                     const c = players[0]
                     const p = players[1]
-                    const result = UI.getValuesFromTimeInput(row.childNodes[3])
+                    const result = Table.getValuesFromTimeInputCell(row.childNodes[3])
                     if (!matches[c]) matches[c] = {}
                     matches[c][p] = result.isSat ? Match.getSatValue() : result.time
                 } 

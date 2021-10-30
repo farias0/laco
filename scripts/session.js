@@ -23,18 +23,18 @@ class Session1Screen {
         for (const setNumber in sets) {
             var matches = sets[setNumber]
 
-            var table = UI.createTable()
-                            .addColumn(UI.createTh('', 10))
-                            .addColumn(UI.createTh('Cabeceiro', 35))
-                            .addColumn(UI.createTh('Peseiro', 35))
-                            .addColumn(UI.createTh('Tempo', 20))
-                            .setRows(matches.map(match => [
-                                UI.createTd((Number(setNumber) * matches.length) + (1+matches.indexOf(match))),
-                                UI.createTd(match.cabeceiro.name),
-                                UI.createTd(match.peseiro.name),
-                                UI.createTimeInput(setNumber, matches.indexOf(match))
-                            ]))
-                            .build()
+            var table = Table.createTable()
+                                .addColumn(Table.createColumn('', 10))
+                                .addColumn(Table.createColumn('Cabeceiro', 35))
+                                .addColumn(Table.createColumn('Peseiro', 35))
+                                .addColumn(Table.createColumn('Tempo', 20))
+                                .setRows(matches.map(match => [
+                                    Table.createCell((Number(setNumber) * matches.length) + (1+matches.indexOf(match))),
+                                    Table.createCell(match.cabeceiro.name),
+                                    Table.createCell(match.peseiro.name),
+                                    Table.createTimeInputCell(setNumber, matches.indexOf(match))
+                                ]))
+                                .build()
 
             $('#session').append(table)
         }
@@ -51,7 +51,7 @@ class Session1Screen {
                 for (const row of rows) {
                     const c = row.childNodes[1].innerText
                     const p = row.childNodes[2].innerText
-                    const result = UI.getValuesFromTimeInput(row.childNodes[3])
+                    const result = Table.getValuesFromTimeInputCell(row.childNodes[3])
                     if (!matches[c]) matches[c] = {}
                     matches[c][p] = result.isSat ? Match.getSatValue() : result.time
                 } 
