@@ -1,5 +1,61 @@
 class UI {
 
+    static Table = class Table {
+
+        id = ''
+        columns = []
+        rows = []
+
+        constructor(id = 'match-set-table') {
+            this.id = id
+        }
+
+        addColumn(column) {
+            this.columns.push(column)
+            return this
+        }
+
+        setRows(rows) {
+            this.rows = rows
+            return this
+        }
+
+        // createCell()
+        // createTimeCell()
+
+        build() {
+            if (this.columns.length !== this.rows[0].length) {
+                throw 'No. of cells per row incompatible with no. of columns'
+            }
+
+            const table = document.createElement('table')
+            table.id = this.id
+            table.classList.add('table')
+
+            const thead = table.createTHead()
+            const headerTr = document.createElement('tr')
+            for (const column of this.columns) {
+                headerTr.appendChild(column)
+            }
+            thead.appendChild(headerTr)
+
+            const tbody = table.createTBody()
+            for (const row of this.rows) {
+                const tr = document.createElement('tr')
+                for (const cell of row) {
+                    tr.appendChild(cell)
+                }
+                tbody.appendChild(tr)
+            }
+        
+            return table
+        }
+    }
+
+    static createTable() {
+        return new this.Table()
+    }
+
     // creates the header for each set table
     static createTh(label, widthPct) {
         const th = document.createElement('th')

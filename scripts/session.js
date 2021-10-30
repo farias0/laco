@@ -1,32 +1,6 @@
 class Session1Screen {
     static session = null
     
-    static createSetTable(setNumber, matches) {
-        const table = document.createElement('table')
-        table.id = 'match-set-table'
-        table.classList.add('table')
-    
-        const thead = table.createTHead()
-        const headerTr = document.createElement('tr')
-        headerTr.appendChild(UI.createTh('', 10))
-        headerTr.appendChild(UI.createTh('Cabeceiro', 35))
-        headerTr.appendChild(UI.createTh('Peseiro', 35))
-        headerTr.appendChild(UI.createTh('Tempo', 20))
-        thead.appendChild(headerTr)
-    
-        const tbody = table.createTBody()
-        for (var match in matches) {
-            const tr = document.createElement('tr')
-            tr.appendChild(UI.createTd((Number(setNumber) * matches.length) + (1+Number(match))))
-            tr.appendChild(UI.createTd(matches[match].cabeceiro.name))
-            tr.appendChild(UI.createTd(matches[match].peseiro.name))
-            tr.appendChild(UI.createTimeInput(setNumber, match))
-            tbody.appendChild(tr)
-        }
-    
-        return table
-    }
-    
     static createToP2Button() {
         const button = document.createElement('button')
         button.id = 'to-session-p2-button'
@@ -47,9 +21,22 @@ class Session1Screen {
 
         const sets = this.session.getSets()
         for (const setNumber in sets) {
-            $('#session').append(
-                this.createSetTable(setNumber, sets[setNumber])
-            )
+            var matches = sets[setNumber]
+
+            var table = UI.createTable()
+                            .addColumn(UI.createTh('', 10))
+                            .addColumn(UI.createTh('Cabeceiro', 35))
+                            .addColumn(UI.createTh('Peseiro', 35))
+                            .addColumn(UI.createTh('Tempo', 20))
+                            .setRows(matches.map(match => [
+                                UI.createTd((Number(setNumber) * matches.length) + (1+matches.indexOf(match))),
+                                UI.createTd(match.cabeceiro.name),
+                                UI.createTd(match.peseiro.name),
+                                UI.createTimeInput(setNumber, matches.indexOf(match))
+                            ]))
+                            .build()
+
+            $('#session').append(table)
         }
 
         $('#session').append(this.createToP2Button())

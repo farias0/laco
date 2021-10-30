@@ -1,31 +1,5 @@
 class Session2Screen {
     static session = []
-    
-    static createSetTable(setNumber, matches) {
-        const table = document.createElement('table')
-        table.id = 'match-set-table'
-        table.classList.add('table')
-    
-        const thead = table.createTHead()
-        const headerTr = document.createElement('tr')
-        headerTr.appendChild(UI.createTh('', 10))
-        headerTr.appendChild(UI.createTh('Partida', 40)) //
-        headerTr.appendChild(UI.createTh('1º Boi', 25)) //
-        headerTr.appendChild(UI.createTh('2º Boi', 25)) //
-        thead.appendChild(headerTr)
-    
-        const tbody = table.createTBody()
-        for (var match in matches) {
-            const tr = document.createElement('tr')
-            tr.appendChild(UI.createTd(parseInt(match) + 1)) //
-            tr.appendChild(UI.createTd(matches[match].cabeceiro.name + ' x ' + matches[match].peseiro.name)) //
-            tr.appendChild(UI.createTd(matches[match].timeP1)) //
-            tr.appendChild(UI.createTimeInput(setNumber, match))
-            tbody.appendChild(tr)
-        }
-    
-        return table
-    }
 
     static createToResultsButton() { //
         const button = document.createElement('button')
@@ -49,7 +23,20 @@ class Session2Screen {
         let qualified = matches.filter(m => m.timeP1 !== Match.getSatValue())
         qualified.sort((a, b) => Match.timeStringTreatment(b.timeP1) - Match.timeStringTreatment(a.timeP1))
 
-        $('#sessionP2').append(this.createSetTable(1, qualified))
+        const table = UI.createTable()
+                        .addColumn(UI.createTh('', 10))
+                        .addColumn(UI.createTh('Partida', 40))
+                        .addColumn(UI.createTh('1º Boi', 25))
+                        .addColumn(UI.createTh('2º Boi', 25))
+                        .setRows(qualified.map(match => [
+                            UI.createTd(qualified.indexOf(match) + 1),
+                            UI.createTd(match.cabeceiro.name + ' x ' + match.peseiro.name),
+                            UI.createTd(match.timeP1),
+                            UI.createTimeInput(1, qualified.indexOf(match))
+                        ]))
+                        .build()
+
+        $('#sessionP2').append(table)
 
         $('#sessionP2').append(this.createToResultsButton())
     }
