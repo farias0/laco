@@ -62,8 +62,11 @@ function getValuesFromChildrenInputs(element) {
 }
 
 $(document).on('click', '#inclusion-start-button', e => {
-    var cabeceiroList = getValuesFromChildrenInputs($('#inclusion-cabeceiro'))
-    var peseiroList = getValuesFromChildrenInputs($('#inclusion-peseiro'))
+    var cabeceiroNameList = getValuesFromChildrenInputs($('#inclusion-cabeceiro'))
+    var peseiroNameList = getValuesFromChildrenInputs($('#inclusion-peseiro'))
+
+    const cabeceiroList = cabeceiroNameList.map(c => new Player(c, "0"))
+    const peseiroList = peseiroNameList.map(p => new Player(p, "0"))
 
     var session = new Session(cabeceiroList, peseiroList)
     Storage.saveSession(session)

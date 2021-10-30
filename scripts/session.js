@@ -89,8 +89,8 @@ class Session1Screen {
         for (var match in matches) {
             const tr = document.createElement('tr')
             tr.appendChild(this.createTd((Number(setNumber) * matches.length) + (1+Number(match))))
-            tr.appendChild(this.createTd(matches[match].cabeceiro))
-            tr.appendChild(this.createTd(matches[match].peseiro))
+            tr.appendChild(this.createTd(matches[match].cabeceiro.name))
+            tr.appendChild(this.createTd(matches[match].peseiro.name))
             tr.appendChild(this.createTimeInput(setNumber, match))
             tbody.appendChild(tr)
         }
@@ -150,7 +150,7 @@ class Session1Screen {
         const results = this.getResultsAsMap()
 
         for (const match of matches) {
-            match.timeP1 = results[match.cabeceiro][match.peseiro]
+            match.timeP1 = results[match.cabeceiro.name][match.peseiro.name]
         }
     }
 }

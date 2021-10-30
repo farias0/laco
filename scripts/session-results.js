@@ -47,7 +47,7 @@ class SessionResultsScreen {
         for (var match in matches) {
             const tr = document.createElement('tr')
             tr.appendChild(this.createTd(parseInt(match) + 1)) //
-            tr.appendChild(this.createTd(matches[match].cabeceiro + ' x ' + matches[match].peseiro)) //
+            tr.appendChild(this.createTd(matches[match].cabeceiro.name + ' x ' + matches[match].peseiro.name)) //
             tr.appendChild(this.createTd(matches[match].timeP1)) //
             tr.appendChild(this.createTd(matches[match].timeP2)) //
             tr.appendChild(this.createTd(matches[match].getAverageTime())) //

@@ -1,3 +1,14 @@
+class Player {
+    constructor(name, handicap) {
+        this.name = name
+        this.handicap = parseFloat(handicap)
+    }
+
+    asString() {
+        return "[" + this.name + ":" + this.handicap + "]"
+    }
+}
+
 class Match {
     constructor(cabeceiro, peseiro, timeP1, timeP2) {
         this.cabeceiro = cabeceiro
@@ -7,7 +18,7 @@ class Match {
     }
 
     asString() {
-        return "" + this.cabeceiro + " x " + this.peseiro + " : " + this.timeP1 + " : " + this.timeP2
+        return "" + this.cabeceiro.asString() + " x " + this.peseiro.asString() + " : " + this.timeP1 + " : " + this.timeP2
     }
 
     getAverageTime() {

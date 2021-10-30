@@ -91,7 +91,7 @@ class Session2Screen {
         for (var match in matches) {
             const tr = document.createElement('tr')
             tr.appendChild(this.createTd(parseInt(match) + 1)) //
-            tr.appendChild(this.createTd(matches[match].cabeceiro + ' x ' + matches[match].peseiro)) //
+            tr.appendChild(this.createTd(matches[match].cabeceiro.name + ' x ' + matches[match].peseiro.name)) //
             tr.appendChild(this.createTd(matches[match].timeP1)) //
             tr.appendChild(this.createTimeInput(setNumber, match))
             tbody.appendChild(tr)
@@ -152,8 +152,8 @@ class Session2Screen {
         const results = this.getResultsAsMap()
 
         for (const match of matches) {
-            if (match.timeP1 !== Match.getSatValue) {
-                match.timeP2 = results[match.cabeceiro][match.peseiro] //
+            if (match.timeP1 !== Match.getSatValue()) {
+                match.timeP2 = results[match.cabeceiro.name][match.peseiro.name] //
             }
         }
     }
