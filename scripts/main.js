@@ -28,5 +28,5 @@ $(document).ready(function() {
 
 $(document).on('click', '#current-session-button', e => {
     e.preventDefault()
-    loadContent('./sections/inclusion.html')
+    loadContent('./sections/inclusion.html', () => InclusionScreen.loadInclusion())
 })
