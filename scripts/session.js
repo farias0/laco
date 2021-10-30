@@ -45,24 +45,12 @@ class Session1Screen {
     }
     
     // creates the header for each set table
-    static createTh(label, cssTag) {
+    static createTh(label, widthPct) {
         const th = document.createElement('th')
-        th.classList.add(cssTag)
         th.scope = 'col'
         th.innerText = label
+        th.style.width = widthPct + "%"
         return th
-    }
-    
-    static createThSize1(label) {
-        return this.createTh(label, 'match-table-column-s1')
-    }
-    
-    static createThSize2(label) {
-        return this.createTh(label, 'match-table-column-s2')
-    }
-    
-    static createThSize3(label) {
-        return this.createTh(label, 'match-table-column-s3')
     }
     
     // creates the cells for each table row (minus the time input cell)
@@ -79,10 +67,10 @@ class Session1Screen {
     
         const thead = table.createTHead()
         const headerTr = document.createElement('tr')
-        headerTr.appendChild(this.createThSize1(''))
-        headerTr.appendChild(this.createThSize3('Cabeceiro'))
-        headerTr.appendChild(this.createThSize3('Peseiro'))
-        headerTr.appendChild(this.createThSize2('Tempo'))
+        headerTr.appendChild(this.createTh('', 10))
+        headerTr.appendChild(this.createTh('Cabeceiro', 35))
+        headerTr.appendChild(this.createTh('Peseiro', 35))
+        headerTr.appendChild(this.createTh('Tempo', 20))
         thead.appendChild(headerTr)
     
         const tbody = table.createTBody()

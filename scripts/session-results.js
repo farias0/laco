@@ -2,24 +2,12 @@ class SessionResultsScreen {
     static session = []
 
     // creates the header for each set table
-    static createTh(label, cssTag) {
+    static createTh(label, widthPct) {
         const th = document.createElement('th')
-        th.classList.add(cssTag)
         th.scope = 'col'
         th.innerText = label
+        th.style.width = widthPct + "%"
         return th
-    }
-    
-    static createThSize1(label) {
-        return this.createTh(label, 'match-table-column-results-s1') //
-    }
-    
-    static createThSize2(label) {
-        return this.createTh(label, 'match-table-column-results-s2') //
-    }
-    
-    static createThSize3(label) {
-        return this.createTh(label, 'match-table-column-results-s3') //
     }
     
     // creates the cells for each table row (minus the time input cell)
@@ -36,11 +24,11 @@ class SessionResultsScreen {
     
         const thead = table.createTHead()
         const headerTr = document.createElement('tr')
-        headerTr.appendChild(this.createThSize1(''))
-        headerTr.appendChild(this.createThSize3('Partida')) //
-        headerTr.appendChild(this.createThSize2('1º')) //
-        headerTr.appendChild(this.createThSize2('2º')) //
-        headerTr.appendChild(this.createThSize2('Média')) //
+        headerTr.appendChild(this.createTh('', 10))
+        headerTr.appendChild(this.createTh('Partida', 50)) //
+        headerTr.appendChild(this.createTh('1º', 17)) //
+        headerTr.appendChild(this.createTh('2º', 17)) //
+        headerTr.appendChild(this.createTh('Média', 17)) //
         thead.appendChild(headerTr)
     
         const tbody = table.createTBody()

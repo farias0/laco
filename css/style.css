@@ -36,42 +36,6 @@
     max-width: 600px;
 }
 
-.match-table-column-s1 {
-    width: 10%;
-}
-
-.match-table-column-s2 {
-    width: 20%;
-}
-
-.match-table-column-s3 {
-    width: 35%;
-}
-
-.match-table-column-p2-s1 {
-    width: 10%;
-}
-
-.match-table-column-p2-s2 {
-    width: 25%;
-}
-
-.match-table-column-p2-s3 {
-    width: 40%;
-}
-
-.match-table-column-results-s1 {
-    width: 10%;
-}
-
-.match-table-column-results-s2 {
-    width: 17%;
-}
-
-.match-table-column-results-s3 {
-    width: 50%;
-}
-
 .sat-checkbox-label {
     margin-right: 10px;
 }
