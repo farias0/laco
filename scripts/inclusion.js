@@ -1,8 +1,8 @@
 class InclusionScreen {
 
     static loadInclusion() {
-        this.setCabeceiroInputBehaviour(1)
-        this.setPeseiroInputBehaviour(1)
+        this.createCabeceiroInput(1)
+        this.createPeseiroInput(1)
 
         $('#inclusion').append(Button.createButton()
                                     .setId('inclusion-start-button')
@@ -22,20 +22,24 @@ class InclusionScreen {
                                     .build())
     }
 
-    static setCabeceiroInputBehaviour(number) {
+    static createCabeceiroInput(number) {
+        $('#inclusion-cabeceiro').append(this.newInput('inclusion-cabeceiro-' + number))
+
         $(document).on('input', '#inclusion-cabeceiro-' + number, e => {
             var next = number + 1
             if (!this.isChildElementPresent('inclusion-cabeceiro', 'inclusion-cabeceiro-' + next)) { // terrible performance, there's gotta be a better way
-                this.createNextCabeceiroInput(next)
+                this.createCabeceiroInput(next)
             }
         })
     }
     
-    static setPeseiroInputBehaviour(number) {
+    static createPeseiroInput(number) {
+        $('#inclusion-peseiro').append(this.newInput('inclusion-peseiro-' + number))
+
         $(document).on('input', '#inclusion-peseiro-' + number, e => {
             var next = number + 1
             if (!this.isChildElementPresent('inclusion-peseiro', 'inclusion-peseiro-' + next)) {
-                this.createNextPeseiroInput(next)
+                this.createPeseiroInput(next)
             }
         })
     }
@@ -47,22 +51,12 @@ class InclusionScreen {
         return false
     }
 
-    static createNextCabeceiroInput(number) {
-        $('#inclusion-cabeceiro').append(this.newCabeceiroInput(number))
-        this.setCabeceiroInputBehaviour(number)
-    }
-    
-    static createNextPeseiroInput(number) {
-        $('#inclusion-peseiro').append(this.newPeseiroInput(number))
-        this.setPeseiroInputBehaviour(number)
-    }
-
-    static newCabeceiroInput(number) {
-        return "<input type=\"text\" class=\"form-control\" id=\"inclusion-cabeceiro-" + number + "\">";
-    }
-    
-    static newPeseiroInput(number) {
-        return "<input type=\"text\" class=\"form-control\" id=\"inclusion-peseiro-" + number + "\">"
+    static newInput(id) {
+        const input = document.createElement('input')
+        input.type = 'text'
+        input.classList.add('form-control')
+        input.id = id
+        return input
     }
 
     static getValuesFromChildrenInputs(element) {
