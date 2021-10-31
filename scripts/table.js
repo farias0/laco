@@ -23,10 +23,6 @@ class Table {
     }
 
     build() {
-        if (this.columns.length !== this.rows[0].length) {
-            throw 'No. of cells per row incompatible with no. of columns'
-        }
-
         const table = document.createElement('table')
         table.id = this.id
         table.classList.add('table')
@@ -62,6 +58,17 @@ class Table {
         const td = document.createElement('td')
         td.innerText = label
         return td
+    }
+
+    static createTextInputCell(action = ()=>{}) {
+        const input = document.createElement('input')
+        input.type = 'text'
+        input.classList.add('form-control')
+        input.addEventListener('input', action)
+
+        const cell = document.createElement('td')
+        cell.appendChild(input)
+        return cell
     }
 
     static createTimeInputCell(id) {
