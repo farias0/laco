@@ -2,8 +2,9 @@ class InclusionScreen {
 
     static cabeceiroTable
     static peseiroTable
+    static session = null
 
-    static loadInclusion() {
+    static loadInclusion(session) {
 
         const cabeceiroText = document.createElement('h2')
         cabeceiroText.innerHTML = 'Cabeceiro'
@@ -36,11 +37,24 @@ class InclusionScreen {
                                         const peseiroList = this.getPlayersFromTable(this.peseiroTable)
                                     
                                         const session = new Session(cabeceiroList, peseiroList)
+
+                                        if (this.session) {
+                                            session.timestamp = this.session.timestamp
+                                        }
+
                                         Storage.saveSession(session)
                                     
                                         loadContent('./sections/session.html', () => Session1Screen.loadSession(session))
                                     })
                                     .build())
+
+        if (session) {
+            this.session = session
+            this.fillCabeceiroRowsWithPlayers(this.session.getCabeceiros())
+            this.fillPeseiroRowsWithPlayers(this.session.getPeseiros())
+        } else {
+            this.session = null
+        }
     }
 
     static addCabeceiroRow(number) {
@@ -65,6 +79,26 @@ class InclusionScreen {
             }
         }))
         newRow.appendChild(Table.createTextInputCell())
+    }
+
+    static fillCabeceiroRowsWithPlayers(cabeceiros) {
+        cabeceiros.forEach((cabeceiro, index) => {
+            const row = this.cabeceiroTable.rows[index + 1]
+
+            Table.fillTextInputCell(row.cells[0], cabeceiro.name)
+            Table.fillTextInputCell(row.cells[1], cabeceiro.handicap)
+            this.addCabeceiroRow(index + 1)
+        })
+    }
+
+    static fillPeseiroRowsWithPlayers(peseiros) {
+        peseiros.forEach((peseiro, index) => {
+            const row = this.peseiroTable.rows[index + 1]
+
+            Table.fillTextInputCell(row.cells[0], peseiro.name)
+            Table.fillTextInputCell(row.cells[1], peseiro.handicap)
+            this.addPeseiroRow(index + 1)
+        })
     }
 
     static isRowPresent(table, rowId) {

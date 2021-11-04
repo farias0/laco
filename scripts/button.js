@@ -2,12 +2,14 @@ class Button {
     id = ''
     label = ''
     type = ''
+    float = ''
     action = () => {}
 
     constructor(id=Button.getRandomButtonId(), label='Botão', type=ButtonType.NORMAL) {
         this.id = id
         this.label = label
         this.type = type
+        this.float = 'float-right'
     }
 
     static createButton() {
@@ -33,11 +35,16 @@ class Button {
         this.action = action
         return this
     }
+
+    floatLeft() {
+        this.float = 'float-left'
+        return this
+    }
     
     build() {
         const button = document.createElement('button')
         button.id = this.id
-        button.classList.add('btn', ButtonType.getBootstrapClass(this.type), 'btn-lg', 'float-right')
+        button.classList.add('btn', ButtonType.getBootstrapClass(this.type), 'btn-lg', this.float)
         button.innerHTML = this.label
 
         $(document).on('click', '#' + this.id, this.action)
@@ -53,6 +60,7 @@ class Button {
 class ButtonType {
     static NORMAL = 'NORMAL'
     static SUCCESS = 'SUCCESS'
+    static SECONDARY = 'SECONDARY'
     
     static getBootstrapClass(type) {
         switch (type) {
@@ -60,6 +68,8 @@ class ButtonType {
                 return 'btn-primary'
             case this.SUCCESS:
                 return 'btn-success'
+            case this.SECONDARY:
+                return 'btn-secondary'
             default:
                 throw 'Invalid button type; use ButtonType class'
         }

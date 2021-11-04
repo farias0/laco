@@ -61,7 +61,7 @@ function isMatchPresent(sets, match) {
 }
 
 class Session {
-    timestamp = ''
+    timestamp = '' // works like a session ID
     sets = []
     isOpen = false
 
@@ -110,6 +110,19 @@ class Session {
             matches.push(...set)
         }
         return matches
+    }
+
+    getCabeceiros() {
+        // this shouldnt need to happen if "cabeceiros" e "peseiros" were properties of a Session
+        return this.getMatches()
+                    .map(match => match.cabeceiro)
+                    .filter((value, index, self) => self.indexOf(value) == index) // filter unique players
+    }
+
+    getPeseiros() {
+        return this.getMatches()
+                    .map(match => match.peseiro)
+                    .filter((value, index, self) => self.indexOf(value) == index)
     }
 
     asString() {

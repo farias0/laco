@@ -71,6 +71,10 @@ class Table {
         return cell
     }
 
+    static fillTextInputCell(cell, text) {
+        cell.children[0].value = text
+    }
+
     static createTimeInputCell(id) {
         const div = document.createElement('div')
 

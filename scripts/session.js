@@ -25,6 +25,16 @@ class Session1Screen {
         }
 
         $('#session').append(Button.createButton()
+                                    .setId('back-to-inclusion-button')
+                                    .setLabel('Voltar')
+                                    .setType(ButtonType.SECONDARY)
+                                    .floatLeft()
+                                    .setAction(() => {
+                                        loadContent('./sections/inclusion.html', () => InclusionScreen.loadInclusion(this.session))
+                                    })
+                                    .build())
+
+        $('#session').append(Button.createButton()
                                     .setId('to-session-p2-button')
                                     .setLabel('Próximo')
                                     .setAction(() => {
