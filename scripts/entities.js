@@ -142,4 +142,13 @@ class Session {
     close() {
         this.isOpen = false
     }
+
+    static recreateFromJson(json) {
+        const session = new Session([], [])
+        session.timestamp = json.timestamp
+        session.sets = json.sets
+        session.isOpen = json.isOpen
+
+        return session
+    }
 }

@@ -9,7 +9,7 @@ class Storage {
     static getAllSessions() {
         var sessions = JSON.parse(window.localStorage.getItem(this.sessionListKey))
         if (!sessions) return []
-        return sessions
+        return sessions.map(s => Session.recreateFromJson(s))
     }
 
     static getFirstOpenSession() {

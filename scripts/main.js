@@ -26,7 +26,16 @@ $(document).ready(function() {
     });
 });
 
-$(document).on('click', '#current-session-button', e => {
+$(document).on('click', '#new-session-button', e => {
     e.preventDefault()
     loadContent('./sections/inclusion.html', () => InclusionScreen.loadInclusion())
+})
+
+$(document).on('click', '#current-session-button', e => {
+    e.preventDefault()
+    const openSession = Storage.getFirstOpenSession()
+    if (!openSession) {
+        loadContent('./sections/inclusion.html', () => InclusionScreen.loadInclusion())
+    }
+    loadContent('./sections/session.html', () => Session1Screen.loadSession(openSession))
 })
