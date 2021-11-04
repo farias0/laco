@@ -19,6 +19,10 @@ class Storage {
         }
     }
 
+    static clearAllHistory() {
+        window.localStorage.clear()
+    }
+
     static saveSession(session) {
         var sessionList = this.getAllSessions()
 

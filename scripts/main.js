@@ -39,3 +39,8 @@ $(document).on('click', '#current-session-button', e => {
     }
     loadContent('./sections/session.html', () => Session1Screen.loadSession(openSession))
 })
+
+$(document).on('click', '#clear-storage-button', e => {
+    e.preventDefault()
+    Storage.clearAllHistory()
+})
